@@ -28,13 +28,15 @@ export class QuickDocDataProvider implements vscode.TreeDataProvider<DocFile> {
                 } else {
                     if (firstLineName.startsWith('#')) {
                         fileName = firstLineName.substring(2);
-                        let newFilePath = path.join(dir, fileName.replace(/ /g, '_')  + '.md');
-                        if (fs.existsSync(newFilePath)) {
-                            let b = true;
-                            for (let i = 0; b; i++) {
-                                let newFilePath = path.join(dir, fileName.replace(/ /g, '_')  + i + '.md');
-                                if (fs.existsSync(newFilePath)) {
-                                    b = false;
+                        let newFilePath = path.join(dir, fileName.replace(/ /g, '_') + '.md');
+                        if (newFilePath !== filePath) {
+                            if (fs.existsSync(newFilePath)) {
+                                let b = true;
+                                for (let i = 0; b; i++) {
+                                    let newFilePath = path.join(dir, fileName.replace(/ /g, '_') + i + '.md');
+                                    if (fs.existsSync(newFilePath)) {
+                                        b = false;
+                                    }
                                 }
                             }
                         }
